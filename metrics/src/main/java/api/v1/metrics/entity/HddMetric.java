@@ -8,8 +8,8 @@ import javax.persistence.*;
 public class HddMetric extends BaseMetric {
     @Column(name = "params")
     private String param;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "attribute_id")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "attribute_id", nullable = false)
     private Attributes attribute_id;
 
     public String getParam() {

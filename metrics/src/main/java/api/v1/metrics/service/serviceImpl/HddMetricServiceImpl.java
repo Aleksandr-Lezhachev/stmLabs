@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class HddMetricServiceImpl implements HddMetricService{
+public class HddMetricServiceImpl implements HddMetricService {
 
-   private final HddRepository hddRepository;
+    private final HddRepository hddRepository;
 
     public HddMetricServiceImpl(HddRepository hddRepository) {
         this.hddRepository = hddRepository;
@@ -29,5 +29,10 @@ public class HddMetricServiceImpl implements HddMetricService{
     @Override
     public List<HddMetric> getAll() {
         return hddRepository.findAll();
+    }
+
+    @Override
+    public List<HddMetric> getByNameSomeMetrics(String name, Integer size) {
+        return hddRepository.getByNameSomeMetrics(name, size);
     }
 }

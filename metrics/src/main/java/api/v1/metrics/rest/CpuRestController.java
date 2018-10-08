@@ -2,21 +2,17 @@ package api.v1.metrics.rest;
 
 import api.v1.metrics.entity.CpuMetric;
 import api.v1.metrics.service.CpuMetricService;
-import org.hibernate.criterion.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("api/v1/metrics")
 public class CpuRestController {
-    // @Autowired устраел
-    private final CpuMetricService cpuMetricService;
 
+    private final CpuMetricService cpuMetricService;
 
     public CpuRestController(CpuMetricService cpuMetricService) {
         this.cpuMetricService = cpuMetricService;
@@ -31,12 +27,19 @@ public class CpuRestController {
         return new ResponseEntity<>(cpuMetricList, HttpStatus.OK);
     }
 
-    @GetMapping("/get/cpu/{count}")
-    public ResponseEntity<List<CpuMetric>> getListCountCpuMetrics() {
-        List<CpuMetric> cpuMetricList = this.cpuMetricService.getAll();
+    @GetMapping("/get/{name}/{count}")
+    public ResponseEntity<List<CpuMetric>> getListCountCpuMetrics(@PathVariable("name") String name, @PathVariable("count") int size) {
+        List<CpuMetric> cpuMetricList = this.cpuMetricService.getByNameSomeMetrics(name, size);
         if (cpuMetricList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(cpuMetricList, HttpStatus.OK);
     }
+
+    @PostMapping("/post/cpu")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createCpuMetric(@RequestBody CpuMetric cpuMetric) {
+        cpuMetricService.save(cpuMetric);
+    }
+
 }

@@ -9,11 +9,12 @@ import java.util.List;
 
 @Service
 public class CpuMetricServiceImpl implements CpuMetricService {
-    //@Autowired устарел
+
     private final CpuRepository cpuRepository;
 
     public CpuMetricServiceImpl(CpuRepository cpuRepository) {
         this.cpuRepository = cpuRepository;
+
     }
 
     @Override
@@ -31,7 +32,20 @@ public class CpuMetricServiceImpl implements CpuMetricService {
         return cpuRepository.findAll();
     }
 
-    public List<CpuMetric> getSomeMetrics() {
-        return cpuRepository.
+    @Override
+    public List<CpuMetric> getByNameSomeMetrics(String name, Integer size) {
+        return cpuRepository.getByNameSomeMetrics(name.toLowerCase(), size);
     }
+
+  /*  public List<Object[]> TestMethod() {
+        EntityManager em = null;
+       Query query = (Query) em.createNativeQuery("SELECT attributes.name, cpu_metrics.id, cpu_metrics.attribute_id ,attributes.value, cpu_metrics.param,attributes.timestamp, attributes.requesttimestamp " +
+               "FROM cpu_metrics INNER JOIN attributes " +
+               "ON cpu_metrics.attribute_id = attributes.id  " +
+               "WHERE attributes.name = (:name) " +
+               "ORDER BY attributes.timestamp " +
+               "DESC LIMIT NULLIF(:size, -1)", "CustomResult");
+
+
+    }*/
 }

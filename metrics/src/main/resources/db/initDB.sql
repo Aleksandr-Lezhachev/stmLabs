@@ -1,6 +1,6 @@
 -- Table Attributes
 CREATE TABLE attributes (
-  id                 BIGINT    NOT NULL  PRIMARY KEY,
+  id                 SERIAL    NOT NULL  PRIMARY KEY,
   name               VARCHAR(20),
   value              FLOAT     NOT NULL,
   status             VARCHAR(40),
@@ -10,7 +10,7 @@ CREATE TABLE attributes (
 );
 -- Table CPU metrics
 CREATE TABLE cpu_metrics (
-  id           BIGINT NOT NULL  PRIMARY KEY,
+  id           SERIAL NOT NULL  PRIMARY KEY,
   param        VARCHAR(1024),
   attribute_id BIGINT NOT NULL,
   FOREIGN KEY (attribute_id) REFERENCES attributes (id)
@@ -18,27 +18,27 @@ CREATE TABLE cpu_metrics (
 );
 -- Table HDD metrics
 CREATE TABLE hdd_metrics (
-  id           BIGINT NOT NULL  PRIMARY KEY,
+  id           SERIAL NOT NULL  PRIMARY KEY,
   param        VARCHAR(1024),
   attribute_id BIGINT NOT NULL,
   FOREIGN KEY (attribute_id) REFERENCES attributes (id)
 );
 -- Table SSD metrics
 CREATE TABLE ssd_metrics (
-  id           BIGINT NOT NULL  PRIMARY KEY,
+  id           SERIAL NOT NULL  PRIMARY KEY,
   param        VARCHAR(1024),
   attribute_id BIGINT NOT NULL,
   FOREIGN KEY (attribute_id) REFERENCES attributes (id)
 );
 -- Table Task metrics
 CREATE TABLE task_metrics (
-  id           BIGINT NOT NULL  PRIMARY KEY,
+  id           SERIAL NOT NULL  PRIMARY KEY,
   attribute_id BIGINT NOT NULL,
   FOREIGN KEY (attribute_id) REFERENCES attributes (id)
 );
 -- Table Memory metrics
 CREATE TABLE memory_metrics (
-  id           BIGINT NOT NULL  PRIMARY KEY,
+  id           SERIAL NOT NULL  PRIMARY KEY,
   param        VARCHAR(1024),
   attribute_id BIGINT NOT NULL,
   FOREIGN KEY (attribute_id) REFERENCES attributes (id)

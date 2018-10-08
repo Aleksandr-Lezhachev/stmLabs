@@ -6,8 +6,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "task_metrics")
 public class TaskMetric extends BaseMetric {
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "attribute_id")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "attribute_id", nullable = false)
     private Attributes attribute_id;
 
     public Attributes getAttribute_id() {

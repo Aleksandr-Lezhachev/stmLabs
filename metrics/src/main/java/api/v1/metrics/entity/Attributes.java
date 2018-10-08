@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 @Table(name = "Attributes")
 public class Attributes {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private Long id;
     @Column(name = "name")
@@ -24,10 +24,11 @@ public class Attributes {
     private Timestamp requestTimeStamp;
     @Column(name = "operationtimestamp")
     @JsonIgnore
-    private Timestamp operationTimeStamp;
+    private Timestamp operationTimeStamp = new Timestamp(System.currentTimeMillis());
 
-  // @OneToMany(mappedBy = "attribute_id", fetch = FetchType.EAGER)
-
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public long getId() {
         return id;
