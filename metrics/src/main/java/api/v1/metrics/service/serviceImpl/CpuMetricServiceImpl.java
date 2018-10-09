@@ -3,6 +3,7 @@ package api.v1.metrics.service.serviceImpl;
 import api.v1.metrics.entity.CpuMetric;
 import api.v1.metrics.repository.CpuRepository;
 import api.v1.metrics.service.CpuMetricService;
+import api.v1.metrics.wrapper.WrapperMetrics;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,15 +38,4 @@ public class CpuMetricServiceImpl implements CpuMetricService {
         return cpuRepository.getByNameSomeMetrics(name.toLowerCase(), size);
     }
 
-  /*  public List<Object[]> TestMethod() {
-        EntityManager em = null;
-       Query query = (Query) em.createNativeQuery("SELECT attributes.name, cpu_metrics.id, cpu_metrics.attribute_id ,attributes.value, cpu_metrics.param,attributes.timestamp, attributes.requesttimestamp " +
-               "FROM cpu_metrics INNER JOIN attributes " +
-               "ON cpu_metrics.attribute_id = attributes.id  " +
-               "WHERE attributes.name = (:name) " +
-               "ORDER BY attributes.timestamp " +
-               "DESC LIMIT NULLIF(:size, -1)", "CustomResult");
-
-
-    }*/
 }

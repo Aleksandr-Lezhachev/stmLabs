@@ -85,4 +85,17 @@ public class Attributes {
     public void setOperationTimeStamp(Timestamp operationTimeStamp) {
         this.operationTimeStamp = operationTimeStamp;
     }
+
+    @Override
+    public String toString() {
+        return "Attributes{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", value=" + value +
+                ", status='" + status + '\'' +
+                ", timestamp=" + timestamp +
+                ", requestTimeStamp=" + requestTimeStamp +
+                ", operationTimeStamp=" + operationTimeStamp +
+                '}';
+    }
 }
