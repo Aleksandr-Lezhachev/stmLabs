@@ -1,5 +1,6 @@
 package api.v1.metrics.entity;
 
+import api.v1.metrics.entity.enums.Status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -17,7 +18,7 @@ public class Attributes {
     @Column(name = "value")
     private double value;
     @Column(name = "status")
-    private String status;
+    private String status = Status.UP.getStatus();
     @Column(name = "timestamp")
     private Timestamp timestamp;
     @Column(name = "requesttimestamp")

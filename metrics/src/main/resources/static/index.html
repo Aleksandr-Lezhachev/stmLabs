@@ -19,18 +19,18 @@
                                 <th>Value</th>
                                 <th>Params</th>
                                 <th>Status</th>
-                                <th>requestTimeStamp</th>
+                                <th>TimeStamp</th>
                                 <th>requestTimeStamp</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr data-ng-repeat="metric in metrics">
-                                <td>{{metric.attribute_id.name}}</td>
-                                <td>{{metric.attribute_id.value}}</td>
+                                <td>{{metric.name}}</td>
+                                <td>{{metric.value}}</td>
                                 <td>{{metric.param}}</td>
-                                <td>{{metric.attribute_id.status}}</td>
-                                <td>{{metric.attribute_id.timestamp}}</td>
-                                <td>{{metric.attribute_id.requestTimeStamp}}</td>
+                                <td>{{metric.status}}</td>
+                                <td>{{metric.timestamp}}</td>
+                                <td>{{metric.requestTimeStamp}}</td>
                             </tr>
                             </tbody>
                         </table>

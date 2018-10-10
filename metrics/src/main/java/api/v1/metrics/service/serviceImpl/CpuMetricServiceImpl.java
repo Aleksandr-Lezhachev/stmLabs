@@ -37,5 +37,4 @@ public class CpuMetricServiceImpl implements CpuMetricService {
     public List<CpuMetric> getByNameSomeMetrics(String name, Integer size) {
         return cpuRepository.getByNameSomeMetrics(name.toLowerCase(), size);
     }
-
 }

@@ -2,7 +2,6 @@ package api.v1.metrics.rest;
 
 
 import api.v1.metrics.entity.*;
-import api.v1.metrics.repository.TaskRepository;
 import api.v1.metrics.service.*;
 import api.v1.metrics.wrapper.WrapperMetrics;
 import org.springframework.http.HttpStatus;
@@ -21,25 +20,23 @@ public class MainRestController {
     private final MemoryMetricService memoryMetricService;
     private final SsdMetricService ssdMetricService;
     private final TaskMetricService taskMetricService;
-    private final TaskRepository taskRepository;
 
-    public MainRestController(CpuMetricService cpuMetricService, HddMetricService hddMetricService, MemoryMetricService memoryMetricService, SsdMetricService ssdMetricService, TaskMetricService taskMetricService, TaskRepository taskRepository) {
+    public MainRestController(CpuMetricService cpuMetricService, HddMetricService hddMetricService, MemoryMetricService memoryMetricService, SsdMetricService ssdMetricService, TaskMetricService taskMetricService) {
         this.cpuMetricService = cpuMetricService;
         this.hddMetricService = hddMetricService;
         this.memoryMetricService = memoryMetricService;
         this.ssdMetricService = ssdMetricService;
         this.taskMetricService = taskMetricService;
-        this.taskRepository = taskRepository;
     }
 
     @GetMapping("/get/all")
     public ResponseEntity getListMetrics() {
         List<BaseMetric> metricList = new ArrayList<BaseMetric>();
-        List<CpuMetric> cpuMetricList = this.cpuMetricService.getAll();
-        List<HddMetric> hddMetricList = this.hddMetricService.getAll();
-        List<MemoryMetric> memoryMetricList = this.memoryMetricService.getAll();
-        List<SsdMetric> ssdMetricList = this.ssdMetricService.getAll();
-        List<TaskMetric> taskMetricList = this.taskRepository.getAllTask();
+        List<CpuMetric> cpuMetricList = this.cpuMetricService.getByNameSomeMetrics("cpu");
+        List<HddMetric> hddMetricList = this.hddMetricService.getByNameSomeMetrics("hdd");
+        List<MemoryMetric> memoryMetricList = this.memoryMetricService.getByNameSomeMetrics("memory");
+        List<SsdMetric> ssdMetricList = this.ssdMetricService.getByNameSomeMetrics("ssd");
+        List<TaskMetric> taskMetricList = this.taskMetricService.getByNameSomeMetrics("taskCount");
         metricList.addAll(cpuMetricList);
         metricList.addAll(hddMetricList);
         metricList.addAll(memoryMetricList);
@@ -51,9 +48,52 @@ public class MainRestController {
         return new ResponseEntity<>(metricList, HttpStatus.OK);
     }
 
+    @GetMapping("/get/")
+    public ResponseEntity bad_req() {
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping("/get/{name}")
+    public ResponseEntity getDefaultCurrentMetric(@PathVariable("name") String name) {
+        switch (name) {
+            case "cpu":
+                List<CpuMetric> cpuMetricList = this.cpuMetricService.getByNameSomeMetrics(name);
+                if (cpuMetricList.isEmpty()) {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+                return new ResponseEntity<>(cpuMetricList, HttpStatus.OK);
+            case "hdd":
+                List<HddMetric> hddMetricList = this.hddMetricService.getByNameSomeMetrics(name);
+                if (hddMetricList.isEmpty()) {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+                return new ResponseEntity<>(hddMetricList, HttpStatus.OK);
+            case "memory":
+                List<MemoryMetric> memoryMetricList = this.memoryMetricService.getByNameSomeMetrics(name);
+                if (memoryMetricList.isEmpty()) {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+                return new ResponseEntity<>(memoryMetricList, HttpStatus.OK);
+            case "ssd":
+                List<SsdMetric> ssdMetricList = this.ssdMetricService.getByNameSomeMetrics(name);
+                if (ssdMetricList.isEmpty()) {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+                return new ResponseEntity<>(ssdMetricList, HttpStatus.OK);
+            case "taskCount":
+                List<TaskMetric> taskMetricList = this.taskMetricService.getByNameSomeMetrics(name);
+                if (taskMetricList.isEmpty()) {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+                return new ResponseEntity<>(taskMetricList, HttpStatus.OK);
+
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
     @GetMapping("/get/{name}/{count}")
     public ResponseEntity getCurrentMetric(@PathVariable("name") String name, @PathVariable("count") int size) {
-        switch (name.toLowerCase()) {
+        switch (name) {
             case "cpu":
                 List<CpuMetric> cpuMetricList = this.cpuMetricService.getByNameSomeMetrics(name, size);
                 if (cpuMetricList.isEmpty()) {
@@ -78,19 +118,35 @@ public class MainRestController {
                     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
                 }
                 return new ResponseEntity<>(ssdMetricList, HttpStatus.OK);
-            case "task":
+            case "taskCount":
                 List<TaskMetric> taskMetricList = this.taskMetricService.getByNameSomeMetrics(name, size);
                 if (taskMetricList.isEmpty()) {
                     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
                 }
                 return new ResponseEntity<>(taskMetricList, HttpStatus.OK);
+            case "all":
+                List<BaseMetric> metricList = new ArrayList<BaseMetric>();
+                List<CpuMetric> cpuList = this.cpuMetricService.getByNameSomeMetrics("cpu", size);
+                List<HddMetric> hddList = this.hddMetricService.getByNameSomeMetrics("hdd", size);
+                List<MemoryMetric> memoryList = this.memoryMetricService.getByNameSomeMetrics("memory", size);
+                List<SsdMetric> ssdList = this.ssdMetricService.getByNameSomeMetrics("ssd", size);
+                List<TaskMetric> taskList = this.taskMetricService.getByNameSomeMetrics("taskCount", size);
+                metricList.addAll(cpuList);
+                metricList.addAll(hddList);
+                metricList.addAll(memoryList);
+                metricList.addAll(ssdList);
+                metricList.addAll(taskList);
+                if (metricList.isEmpty()) {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+                return new ResponseEntity<>(metricList, HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/get/{name}/all")
-    public ResponseEntity getCurrentMetric(@PathVariable("name") String name) {
-        switch (name.toLowerCase()) {
+    public ResponseEntity getAllCurrentMetric(@PathVariable("name") String name) {
+        switch (name) {
             case "cpu":
                 List<CpuMetric> cpuMetricList = this.cpuMetricService.getAll();
                 if (cpuMetricList.isEmpty()) {
@@ -115,7 +171,7 @@ public class MainRestController {
                     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
                 }
                 return new ResponseEntity<>(ssdMetricList, HttpStatus.OK);
-            case "task":
+            case "taskCount":
                 List<TaskMetric> taskMetricList = this.taskMetricService.getAll();
                 if (taskMetricList.isEmpty()) {
                     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -125,7 +181,7 @@ public class MainRestController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @PostMapping("/post/")
+    @PostMapping("/post")
     @ResponseStatus(HttpStatus.CREATED)
     public void saveMetrics(@RequestBody List<WrapperMetrics> metrics) {
         for (WrapperMetrics m : metrics) {
@@ -145,7 +201,7 @@ public class MainRestController {
                 SsdMetric ssd = new SsdMetric(m.getParam(), m.getAttribute_id());
                 ssdMetricService.save(ssd);
             }
-            if (m.getAttribute_id().getName().equals("task")) {
+            if (m.getAttribute_id().getName().equals("taskCount")) {
                 TaskMetric task = new TaskMetric(m.getAttribute_id());
                 taskMetricService.save(task);
             }

@@ -14,5 +14,9 @@ public interface BaseMetricService<T> {
     List<T> getAll();
 
     List<T> getByNameSomeMetrics(String name,Integer size);
+
+    default List<T> getByNameSomeMetrics(String name){
+        return getByNameSomeMetrics(name,3);
+    }
 }
 

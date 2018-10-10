@@ -14,7 +14,7 @@ public interface CpuRepository extends JpaRepository<CpuMetric, Long> {
             "WHERE attributes.name = (:name) " +
             "ORDER BY attributes.timestamp " +
             "DESC LIMIT NULLIF(:size, -1)", nativeQuery = true)
-    List<CpuMetric> getByNameSomeMetrics(@Param("name") String name, @Param("size") Integer size);
 
+    List<CpuMetric> getByNameSomeMetrics(@Param("name") String name, @Param("size") Integer size);
 
 }

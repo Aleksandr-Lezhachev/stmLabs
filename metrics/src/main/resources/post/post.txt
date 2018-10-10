@@ -1,0 +1,42 @@
+/**Post Json для добавления массива метрик*/
+fetch('http://localhost:8080/api/v1/metrics/post/',
+{method: "POST", headers: {'Content-Type': 'application/json'},
+body:  JSON.stringify([
+{
+"name":"cpu",
+"value":44,
+"timestamp":"2018-09-21T14:32:33.354+0000",
+"requestTimeStamp":"2018-09-21T14:32:33.354+0000",
+"param":"AMD A8 4500M APU with Radeon™ HD Graphics TEST"
+},
+{
+"name":"hdd",
+"value":74,
+"status":"UP",
+"timestamp":"2018-09-21T14:32:32.354+0000",
+"requestTimeStamp":"2018-09-21T14:32:32.354+0000",
+"param":"TOSHIBA MQ 01ABF050"
+},
+{
+"name":"ssd",
+"value":68,"status":"UP",
+"timestamp":"2018-09-21T14:32:31.354+0000",
+"requestTimeStamp":"2018-09-21T14:32:31.354+0000",
+"param":"KINGSTON MLG1267"
+},
+{
+"name":"memory",
+"value":55.8,
+"status":"UP",
+"timestamp":"2018-09-21T14:32:31.354+0000",
+"requestTimeStamp":"2018-09-21T14:32:31.354+0000",
+"param":"Slot1: SO-DIMM DDR3L 1600 MHz 4GiB"
+},
+{
+"name":"taskCount",
+"value":13,
+"status":"UP",
+"timestamp":"2018-09-21T14:32:31.354+0000",
+"requestTimeStamp":"2018-09-21T14:32:31.354+0000"
+}
+])}).then(console.log)
