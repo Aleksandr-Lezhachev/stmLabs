@@ -27,6 +27,21 @@ public class Attributes {
     @JsonIgnore
     private Timestamp operationTimeStamp = new Timestamp(System.currentTimeMillis());
 
+    public Attributes(String name, double value, String status, Timestamp timestamp, Timestamp requestTimeStamp) {
+        this.name = name;
+        this.value = value;
+        this.status = status;
+        this.timestamp = timestamp;
+        this.requestTimeStamp = requestTimeStamp;
+    }
+
+    public Attributes(String name, double value, Timestamp timestamp, Timestamp requestTimeStamp) {
+        this.name = name;
+        this.value = value;
+        this.timestamp = timestamp;
+        this.requestTimeStamp = requestTimeStamp;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }

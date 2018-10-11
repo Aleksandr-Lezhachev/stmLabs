@@ -48,7 +48,7 @@ public class MainRestController {
         return new ResponseEntity<>(metricList, HttpStatus.OK);
     }
 
-    @GetMapping("/get/")
+    @GetMapping("/get")
     public ResponseEntity bad_req() {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
@@ -177,6 +177,22 @@ public class MainRestController {
                     return new ResponseEntity<>(HttpStatus.NOT_FOUND);
                 }
                 return new ResponseEntity<>(taskMetricList, HttpStatus.OK);
+            case "all":
+                List<BaseMetric> allMetricList = new ArrayList<BaseMetric>();
+                List<CpuMetric> cpuAllMetricList = this.cpuMetricService.getAll();
+                List<HddMetric> hddAllMetricList = this.hddMetricService.getAll();
+                List<MemoryMetric> memoryAllMetricList = this.memoryMetricService.getAll();
+                List<SsdMetric> ssdAllMetricList = this.ssdMetricService.getAll();
+                List<TaskMetric> taskAllMetricList = this.taskMetricService.getAll();
+                allMetricList.addAll(cpuAllMetricList);
+                allMetricList.addAll(hddAllMetricList);
+                allMetricList.addAll(memoryAllMetricList);
+                allMetricList.addAll(ssdAllMetricList);
+                allMetricList.addAll(taskAllMetricList);
+                if (allMetricList.isEmpty()) {
+                    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                }
+                return new ResponseEntity<>(allMetricList, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
