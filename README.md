@@ -112,11 +112,150 @@ TESTING
 				имя метрики не указано;
 				указанной метрики не существует.
 				
+Ручное тестирование:
+
+	Тестирование GET запросов
+
+	!Внимание все данные запрашиваемые в браузере возвращаются в формате Json.
+	
+	Откройте Ваш веб-браузер.
+	
+		1. Введите ссылку http://localhost:8080/api/v1/metrics/get/cpu/2 нажмите Enter
+			Ожидаемый результат: в браузере будут отображены 2 самые "свежие" метрики cpu
+			
+		2. Введите ссылку http://localhost:8080/api/v1/metrics/get/hdd/2 нажмите Enter
+			Ожидаемый результат: в браузере будут отображены 2 самые "свежие" метрики hdd
+			
+		3. Введите ссылку http://localhost:8080/api/v1/metrics/get/ssd/2 нажмите Enter
+			Ожидаемый результат: в браузере будут отображены 2 самые "свежие" метрики ssd
+			
+		4. Введите ссылку http://localhost:8080/api/v1/metrics/get/memory/2 нажмите Enter
+			Ожидаемый результат: в браузере будут отображены 2 самые "свежие" метрики memory
+			
+		5. Введите ссылку http://localhost:8080/api/v1/metrics/get/taskCount/2 нажмите Enter
+			Ожидаемый результат: в браузере будут отображены 2 самые "свежие" метрики taskCount		
+
+		6. Введите ссылку http://localhost:8080/api/v1/metrics/get/cpu/all нажмите Enter
+			Ожидаемый результат: в браузере будут отображены все метрики cpu
+			
+		7. Введите ссылку http://localhost:8080/api/v1/metrics/get/hdd/all нажмите Enter
+			Ожидаемый результат: в браузере будут отображены все метрики hdd
+			
+		8. Введите ссылку http://localhost:8080/api/v1/metrics/get/ssd/all нажмите Enter
+			Ожидаемый результат: в браузере будут отображены всеметрики ssd
+			
+		9. Введите ссылку http://localhost:8080/api/v1/metrics/get/memory/all нажмите Enter
+			Ожидаемый результат: в браузере будут отображены все метрики memory
+			
+		10. Введите ссылку http://localhost:8080/api/v1/metrics/get/taskCount/all нажмите Enter
+			Ожидаемый результат: в браузере будут отображены все метрики taskCount
+			
+		11. Введите ссылку http://localhost:8080/api/v1/metrics/get/cpu нажмите Enter
+			Ожидаемый результат: в браузере будут отображены 3 самые "свежие" метрики cpu
+			
+		12. Введите ссылку http://localhost:8080/api/v1/metrics/get/hdd нажмите Enter
+			Ожидаемый результат: в браузере будут отображены 3 самые "свежие" метрики hdd
+			
+		13. Введите ссылку http://localhost:8080/api/v1/metrics/get/ssd нажмите Enter
+			Ожидаемый результат: в браузере будут отображены 3 самые "свежие" метрики ssd
+			
+		14. Введите ссылку http://localhost:8080/api/v1/metrics/get/memory нажмите Enter
+			Ожидаемый результат: в браузере будут отображены 3 самые "свежие" метрики memory
+			
+		15. Введите ссылку http://localhost:8080/api/v1/metrics/get/taskCount нажмите Enter
+			Ожидаемый результат: в браузере будут отображены 3 самые "свежие" метрики taskCount
+		
+		16. Введите ссылку http://localhost:8080/api/v1/metrics/get/all нажмите Enter
+			Ожидаемый результат: в браузере будут отображены 3 самые "свежие" по каждому типу
+			
+		17. Введите ссылку http://localhost:8080/api/v1/metrics/get/all/2 нажмите Enter
+			Ожидаемый результат: в браузере будут отображены 2 самые "свежие" по каждому типу
+			
+		18. Введите ссылку http://localhost:8080/api/v1/metrics/get/all/all нажмите Enter
+			Ожидаемый результат: в браузере будут отображены 2 самые "свежие" по каждому типу
+			
+		19. Введите ссылку http://localhost:8080/api/v1/metrics/get нажмите Enter
+			Ожидаемый результат: Ошибка 400 bad_request
+			
+		20. Введите ссылку http://localhost:8080/api/v1/metrics/get/ нажмите Enter
+			Ожидаемый результат: Ошибка 400 bad_request
+			
+		21. Введите ссылку http://localhost:8080/api/v1/metrics/get/foo нажмите Enter
+			Ожидаемый результат: Ошибка 400 bad_request
+			
+		22. Введите ссылку http://localhost:8080/api/v1/metrics/get/foo/ нажмите Enter
+			Ожидаемый результат: Ошибка 400 bad_request
+			
+	Тестирование POST запроса
+	
+		!Внимание для отправки POST запроса необходим браузер Google Chrome или же утилита postman
+		
+		Тест для браузера:
+		
+		1. Откройте Google Chrome.
+		2. Нажмите клавишу F12. Откроется панель разработчика
+		3. Перейдите на вкладку Console в шапке панели разработчика
+		4. Скопируйте данный код:
+			
+			fetch('http://localhost:8080/api/v1/metrics/post/',
+			{method: "POST", headers: {'Content-Type': 'application/json'},
+			body:  JSON.stringify([
+			{
+			"name":"cpu",
+			"value":44,
+			"timestamp":"2018-09-21T14:32:33.354+0000",
+			"requestTimeStamp":"2018-09-21T14:32:33.354+0000",
+			"param":"AMD A8 4500M APU with Radeon™ HD Graphics TEST"
+			},
+			{
+			"name":"hdd",
+			"value":74,
+			"status":"UP",
+			"timestamp":"2018-09-21T14:32:32.354+0000",
+			"requestTimeStamp":"2018-09-21T14:32:32.354+0000",
+			"param":"TOSHIBA MQ 01ABF050"
+			},
+			{
+			"name":"ssd",
+			"value":68,"status":"UP",
+			"timestamp":"2018-09-21T14:32:31.354+0000",
+			"requestTimeStamp":"2018-09-21T14:32:31.354+0000",
+			"param":"KINGSTON MLG1267"
+			},
+			{
+			"name":"memory",
+			"value":55.8,
+			"status":"UP",
+			"timestamp":"2018-09-21T14:32:31.354+0000",
+			"requestTimeStamp":"2018-09-21T14:32:31.354+0000",
+			"param":"Slot1: SO-DIMM DDR3L 1600 MHz 4GiB"
+			},
+			{
+			"name":"taskCount",
+			"value":13,
+			"status":"UP",
+			"timestamp":"2018-09-21T14:32:31.354+0000",
+			"requestTimeStamp":"2018-09-21T14:32:31.354+0000"
+			}
+			])}).then(console.log)	
+
+		5. Вставте скопированный код в консоль разработчика
+		6. Нажмите Enter
+		
+		Ожидаемый результат:		
+		После отправки запроса от сервера в консоль придет следующий ответ
+		
+			Promise {<pending>}
+			Response {type: "basic", url: "http://localhost:8080/api/v1/metrics/post/", redirected: false, status: 201, ok: true, …}
+			
+		Такой ответ означает что запрос выполнен успешно и в базы данных добавлено по 1ой новой записи для каждого типа метрик.	
 				
 WHAT'S NEXT
 -----------
+Откройте Ваш веб-браузер.
 
-Вы можете просмотреть список всех метрик в базе данных по ссылке:
- http://localhost:8080/
+	Вы можете просмотреть список всех метрик в базе данных по ссылке: http://localhost:8080/
+
+ 
 
 
