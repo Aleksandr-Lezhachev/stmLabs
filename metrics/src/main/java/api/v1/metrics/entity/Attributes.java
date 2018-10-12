@@ -2,6 +2,7 @@ package api.v1.metrics.entity;
 
 import api.v1.metrics.entity.enums.Status;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.w3c.dom.Attr;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -26,6 +27,8 @@ public class Attributes {
     @Column(name = "operationtimestamp")
     @JsonIgnore
     private Timestamp operationTimeStamp = new Timestamp(System.currentTimeMillis());
+
+    public Attributes(){}
 
     public Attributes(String name, double value, String status, Timestamp timestamp, Timestamp requestTimeStamp) {
         this.name = name;

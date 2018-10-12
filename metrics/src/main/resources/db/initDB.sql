@@ -1,4 +1,3 @@
--- Table Attributes
 CREATE TABLE attributes (
   id                 SERIAL    NOT NULL  PRIMARY KEY,
   name               VARCHAR(20),

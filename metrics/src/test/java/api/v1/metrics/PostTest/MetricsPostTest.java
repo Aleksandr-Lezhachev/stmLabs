@@ -1,4 +1,4 @@
-package api.v1.metrics.PostTest;
+package api.v1.metrics.postTest;
 
 import api.v1.metrics.entity.*;
 import api.v1.metrics.entity.enums.Status;
