@@ -31,7 +31,7 @@ public class MainRestController {
 
     @GetMapping("/get/all")
     public ResponseEntity getListMetrics() {
-        List<BaseMetric> metricList = new ArrayList<BaseMetric>();
+        List<BaseMetric> metricList = new ArrayList<>();
         List<CpuMetric> cpuMetricList = this.cpuMetricService.getByNameSomeMetrics("cpu");
         List<HddMetric> hddMetricList = this.hddMetricService.getByNameSomeMetrics("hdd");
         List<MemoryMetric> memoryMetricList = this.memoryMetricService.getByNameSomeMetrics("memory");
@@ -49,7 +49,7 @@ public class MainRestController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity badReq() {
+    public ResponseEntity badRequest() {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
@@ -125,7 +125,7 @@ public class MainRestController {
                 }
                 return new ResponseEntity<>(taskMetricList, HttpStatus.OK);
             case "all":
-                List<BaseMetric> metricList = new ArrayList<BaseMetric>();
+                List<BaseMetric> metricList = new ArrayList<>();
                 List<CpuMetric> cpuList = this.cpuMetricService.getByNameSomeMetrics("cpu", size);
                 List<HddMetric> hddList = this.hddMetricService.getByNameSomeMetrics("hdd", size);
                 List<MemoryMetric> memoryList = this.memoryMetricService.getByNameSomeMetrics("memory", size);
@@ -178,7 +178,7 @@ public class MainRestController {
                 }
                 return new ResponseEntity<>(taskMetricList, HttpStatus.OK);
             case "all":
-                List<BaseMetric> allMetricList = new ArrayList<BaseMetric>();
+                List<BaseMetric> allMetricList = new ArrayList<>();
                 List<CpuMetric> cpuAllMetricList = this.cpuMetricService.getAll();
                 List<HddMetric> hddAllMetricList = this.hddMetricService.getAll();
                 List<MemoryMetric> memoryAllMetricList = this.memoryMetricService.getAll();
