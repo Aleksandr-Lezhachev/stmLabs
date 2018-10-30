@@ -6,21 +6,21 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "hdd_metrics")
+@Table(name = "hddMetrics")
 public class HddMetric extends BaseMetric {
     @Column(name = "param")
     private String param;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "attribute_id", nullable = false)
+    @JoinColumn(name = "attributeId", nullable = false)
     @JsonUnwrapped
-    private Attributes attribute_id;
+    private Attributes attributeId;
 
     public HddMetric() {
     }
 
-    public HddMetric(String param, Attributes attribute_id) {
+    public HddMetric(String param, Attributes attributeId) {
         this.param = param;
-        this.attribute_id = attribute_id;
+        this.attributeId = attributeId;
     }
 
     public String getParam() {
@@ -31,19 +31,19 @@ public class HddMetric extends BaseMetric {
         this.param = param;
     }
 
-    public Attributes getAttribute_id() {
-        return attribute_id;
+    public Attributes getAttributeId() {
+        return attributeId;
     }
 
-    public void setAttribute_id(Attributes attribute_id) {
-        this.attribute_id = attribute_id;
+    public void setAttributeId(Attributes attributeId) {
+        this.attributeId = attributeId;
     }
 
     @Override
     public String toString() {
         return "HddMetric{" +
                 "param='" + param + '\'' +
-                ", attribute_id=" + attribute_id +
+                ", attribute_id=" + attributeId +
                 '}';
     }
 }

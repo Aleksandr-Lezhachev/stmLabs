@@ -13,16 +13,16 @@ public class BaseMetric implements Serializable {
     @JsonIgnore
     private long id;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "attribute_id", nullable = false)
+    @JoinColumn(name = "attributeId", nullable = false)
     @JsonUnwrapped
-    private Attributes attribute_id;
+    private Attributes attributeId;
 
-    public Attributes getAttribute_id() {
-        return attribute_id;
+    public Attributes getAttributeId() {
+        return attributeId;
     }
 
-    public void setAttribute_id(Attributes attribute_id) {
-        this.attribute_id = attribute_id;
+    public void setAttributeId(Attributes attributeId) {
+        this.attributeId = attributeId;
     }
 
     public long getId() {

@@ -1,4 +1,4 @@
-package api.v1.metrics.GetTest;
+package api.v1.metrics.getTest;
 
 import org.junit.Assert;
 import org.junit.Test;

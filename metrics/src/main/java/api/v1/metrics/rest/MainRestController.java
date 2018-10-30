@@ -49,7 +49,7 @@ public class MainRestController {
     }
 
     @GetMapping("/get")
-    public ResponseEntity bad_req() {
+    public ResponseEntity badReq() {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
@@ -201,24 +201,24 @@ public class MainRestController {
     @ResponseStatus(HttpStatus.CREATED)
     public void saveMetrics(@RequestBody List<WrapperMetrics> metrics) {
         for (WrapperMetrics m : metrics) {
-            if (m.getAttribute_id().getName().equals("cpu")) {
-                CpuMetric cpu = new CpuMetric(m.getParam(), m.getAttribute_id());
+            if (m.getAttributeId().getName().equals("cpu")) {
+                CpuMetric cpu = new CpuMetric(m.getParam(), m.getAttributeId());
                 cpuMetricService.save(cpu);
             }
-            if (m.getAttribute_id().getName().equals("hdd")) {
-                HddMetric hdd = new HddMetric(m.getParam(), m.getAttribute_id());
+            if (m.getAttributeId().getName().equals("hdd")) {
+                HddMetric hdd = new HddMetric(m.getParam(), m.getAttributeId());
                 hddMetricService.save(hdd);
             }
-            if (m.getAttribute_id().getName().equals("memory")) {
-                MemoryMetric memory = new MemoryMetric(m.getParam(), m.getAttribute_id());
+            if (m.getAttributeId().getName().equals("memory")) {
+                MemoryMetric memory = new MemoryMetric(m.getParam(), m.getAttributeId());
                 memoryMetricService.save(memory);
             }
-            if (m.getAttribute_id().getName().equals("ssd")) {
-                SsdMetric ssd = new SsdMetric(m.getParam(), m.getAttribute_id());
+            if (m.getAttributeId().getName().equals("ssd")) {
+                SsdMetric ssd = new SsdMetric(m.getParam(), m.getAttributeId());
                 ssdMetricService.save(ssd);
             }
-            if (m.getAttribute_id().getName().equals("taskCount")) {
-                TaskMetric task = new TaskMetric(m.getAttribute_id());
+            if (m.getAttributeId().getName().equals("taskCount")) {
+                TaskMetric task = new TaskMetric(m.getAttributeId());
                 taskMetricService.save(task);
             }
         }

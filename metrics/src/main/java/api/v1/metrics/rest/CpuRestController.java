@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 public class CpuRestController {
     private final CpuMetricService cpuMetricService;
 
-
     public CpuRestController(CpuMetricService cpuMetricService) {
         this.cpuMetricService = cpuMetricService;
     }

@@ -8,37 +8,37 @@ CREATE TABLE attributes (
   operationTimeStamp TIMESTAMP NOT NULL
 );
 -- Table CPU metrics
-CREATE TABLE cpu_metrics (
+CREATE TABLE cpuMetrics (
   id           SERIAL NOT NULL  PRIMARY KEY,
   param        VARCHAR(1024),
-  attribute_id BIGINT NOT NULL,
-  FOREIGN KEY (attribute_id) REFERENCES attributes (id)
+  attributeId BIGINT NOT NULL,
+  FOREIGN KEY (attributeId) REFERENCES attributes (id)
 
 );
 -- Table HDD metrics
-CREATE TABLE hdd_metrics (
+CREATE TABLE hddMetrics (
   id           SERIAL NOT NULL  PRIMARY KEY,
   param        VARCHAR(1024),
-  attribute_id BIGINT NOT NULL,
-  FOREIGN KEY (attribute_id) REFERENCES attributes (id)
+  attributeId BIGINT NOT NULL,
+  FOREIGN KEY (attributeId) REFERENCES attributes (id)
 );
 -- Table SSD metrics
-CREATE TABLE ssd_metrics (
+CREATE TABLE ssdMetrics (
   id           SERIAL NOT NULL  PRIMARY KEY,
   param        VARCHAR(1024),
-  attribute_id BIGINT NOT NULL,
-  FOREIGN KEY (attribute_id) REFERENCES attributes (id)
+  attributeId BIGINT NOT NULL,
+  FOREIGN KEY (attributeId) REFERENCES attributes (id)
 );
 -- Table Task metrics
-CREATE TABLE task_metrics (
+CREATE TABLE taskMetrics (
   id           SERIAL NOT NULL  PRIMARY KEY,
-  attribute_id BIGINT NOT NULL,
-  FOREIGN KEY (attribute_id) REFERENCES attributes (id)
+  attributeId BIGINT NOT NULL,
+  FOREIGN KEY (attributeId) REFERENCES attributes (id)
 );
 -- Table Memory metrics
-CREATE TABLE memory_metrics (
+CREATE TABLE memoryMetrics (
   id           SERIAL NOT NULL  PRIMARY KEY,
   param        VARCHAR(1024),
-  attribute_id BIGINT NOT NULL,
-  FOREIGN KEY (attribute_id) REFERENCES attributes (id)
+  attributeId BIGINT NOT NULL,
+  FOREIGN KEY (attributeId) REFERENCES attributes (id)
 );

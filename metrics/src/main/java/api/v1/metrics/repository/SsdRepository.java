@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-
 public interface SsdRepository extends JpaRepository<SsdMetric, Long> {
     @Query(value = "SELECT attributes.name, ssd_metrics.id, ssd_metrics.attribute_id ,attributes.value, " +
             "ssd_metrics.param,attributes.timestamp, attributes.requesttimestamp " +

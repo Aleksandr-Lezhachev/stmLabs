@@ -20,15 +20,16 @@ public class Attributes {
     private double value;
     @Column(name = "status")
     private String status = Status.UP.getStatus();
-    @Column(name = "timestamp")
+    @Column(name = "timeStamp")
     private Timestamp timestamp;
-    @Column(name = "requesttimestamp")
+    @Column(name = "requestTimeStamp")
     private Timestamp requestTimeStamp;
-    @Column(name = "operationtimestamp")
+    @Column(name = "operationTimeStamp")
     @JsonIgnore
     private Timestamp operationTimeStamp = new Timestamp(System.currentTimeMillis());
 
-    public Attributes(){}
+    public Attributes() {
+    }
 
     public Attributes(String name, double value, String status, Timestamp timestamp, Timestamp requestTimeStamp) {
         this.name = name;
@@ -71,38 +72,6 @@ public class Attributes {
 
     public void setValue(double value) {
         this.value = value;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public Timestamp getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(Timestamp timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public Timestamp getRequestTimeStamp() {
-        return requestTimeStamp;
-    }
-
-    public void setRequestTimeStamp(Timestamp requestTimeStamp) {
-        this.requestTimeStamp = requestTimeStamp;
-    }
-
-    public Timestamp getOperationTimeStamp() {
-        return operationTimeStamp;
-    }
-
-    public void setOperationTimeStamp(Timestamp operationTimeStamp) {
-        this.operationTimeStamp = operationTimeStamp;
     }
 
     @Override

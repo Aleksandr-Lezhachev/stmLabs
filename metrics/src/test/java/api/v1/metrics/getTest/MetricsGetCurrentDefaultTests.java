@@ -1,4 +1,4 @@
-package api.v1.metrics.GetTest;
+package api.v1.metrics.getTest;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,18 +10,13 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-
 /**
- * Класс для тестирования запроса http://localhost:8080/api/v1/metrics/get/{name}/{count}
- * При выполнении данных тестов мы должны получить последние N (N- число указанное в параметре  {count} запроса)
- * самых свежих метрик указанного типа (тип - имя метрики указанное в параметре {name} запроса)
- * Перед выполнением тестов необходимо проверить, что
- * в базе данных количество записей для каждого типа метрик больше количества запрашиваемых
+ * По умолчанию мы должны получить последние 3 самые свежие метрики указанного типа
+ * Перед выполнением тестов необходимо проверить что в базе данных есть как минимум по 3 записи для каждого типа метрик
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MetricsGetCurrentCountTests {
-    int count = 2; // число запрашиваемых метрик
+public class MetricsGetCurrentDefaultTests {
 
     @Test
     public void contextLoads() {
@@ -30,104 +25,102 @@ public class MetricsGetCurrentCountTests {
     @Test
     public void testGetCpuCountListSuccess() throws URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();
-        final String baseUrl = "http://localhost:" + 8080 + "/api/v1/metrics/get/cpu/" + count;
+        final String baseUrl = "http://localhost:" + 8080 + "/api/v1/metrics/get/cpu/5";
         URI uri = new URI(baseUrl);
         ResponseEntity<String> result = restTemplate.getForEntity(uri, String.class);
         String[] list = result.getBody().split("},");
-        int cpuCount = 0;
+        int count = 0;
         for (String l : list) {
-            if (l.contains("\"name\":\"cpu\"")) {
-                cpuCount++;
-            } else {
+            if (!(l.contains("\"name\":\"cpu\""))) {
                 break;
             }
+            count++;
         }
         //Verify request succeed
         Assert.assertEquals(200, result.getStatusCodeValue());
-        Assert.assertEquals(true, cpuCount == count);
+        Assert.assertEquals(true, count == 3);
     }
 
     @Test
     public void testGetHddDefaultListSuccess() throws URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();
-        final String baseUrl = "http://localhost:" + 8080 + "/api/v1/metrics/get/hdd/" + count;
+        final String baseUrl = "http://localhost:" + 8080 + "/api/v1/metrics/get/hdd";
         URI uri = new URI(baseUrl);
         ResponseEntity<String> result = restTemplate.getForEntity(uri, String.class);
         String[] list = result.getBody().split("},");
-        int hddCount = 0;
+        int count = 0;
         for (String l : list) {
-            if (l.contains("\"name\":\"hdd\"")) {
-                hddCount++;
-            } else {
+            if (!(l.contains("\"name\":\"hdd\""))) {
                 break;
             }
+            count++;
         }
         //Verify request succeed
         Assert.assertEquals(200, result.getStatusCodeValue());
-        Assert.assertEquals(true, count == hddCount);
+        Assert.assertEquals(true, count == 3);
     }
 
     @Test
     public void testGetMemoryDefaultListSuccess() throws URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();
-        final String baseUrl = "http://localhost:" + 8080 + "/api/v1/metrics/get/memory/" + count;
+        final String baseUrl = "http://localhost:" + 8080 + "/api/v1/metrics/get/memory";
         URI uri = new URI(baseUrl);
         ResponseEntity<String> result = restTemplate.getForEntity(uri, String.class);
         String[] list = result.getBody().split("},");
-        int memoryCount = 0;
+        int count = 0;
         for (String l : list) {
-            if (l.contains("\"name\":\"memory\"")) {
-                memoryCount++;
-            } else {
+            if (!(l.contains("\"name\":\"memory\""))) {
                 break;
             }
+            count++;
         }
+        //Verify request succeed
         Assert.assertEquals(200, result.getStatusCodeValue());
-        Assert.assertEquals(true, count == memoryCount);
+        Assert.assertEquals(true, count == 3);
     }
 
     @Test
     public void testGetSsdDefaultListSuccess() throws URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();
-        final String baseUrl = "http://localhost:" + 8080 + "/api/v1/metrics/get/ssd/" + count;
+        final String baseUrl = "http://localhost:" + 8080 + "/api/v1/metrics/get/ssd";
         URI uri = new URI(baseUrl);
         ResponseEntity<String> result = restTemplate.getForEntity(uri, String.class);
         String[] list = result.getBody().split("},");
-        int ssdCount = 0;
+        int count = 0;
         for (String l : list) {
-            if (l.contains("\"name\":\"ssd\"")) {
-                ssdCount++;
-            } else {
+            if (!(l.contains("\"name\":\"ssd\""))) {
                 break;
             }
+            count++;
         }
+        //Verify request succeed
         Assert.assertEquals(200, result.getStatusCodeValue());
-        Assert.assertEquals(true, count == ssdCount);
+        Assert.assertEquals(true, count == 3);
     }
 
     @Test
     public void testGetTaskDefaultListSuccess() throws URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();
-        final String baseUrl = "http://localhost:" + 8080 + "/api/v1/metrics/get/taskCount/" + count;
+        final String baseUrl = "http://localhost:" + 8080 + "/api/v1/metrics/get/taskCount";
         URI uri = new URI(baseUrl);
         ResponseEntity<String> result = restTemplate.getForEntity(uri, String.class);
         String[] list = result.getBody().split("},");
-        int taskCount = 0;
+        int count = 0;
         for (String l : list) {
-            if (l.contains("\"name\":\"taskCount\"")) {
-                taskCount++;
-            } else {
+            if (!(l.contains("\"name\":\"taskCount\""))) {
                 break;
             }
+            count++;
         }
+        //Verify request succeed
         Assert.assertEquals(200, result.getStatusCodeValue());
-        Assert.assertEquals(true, count == taskCount);
+        Assert.assertEquals(true, count == 3);
     }
 
     @Test
     public void testGetAllDefaultListSuccess() throws URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();
-        final String baseUrl = "http://localhost:" + 8080 + "/api/v1/metrics/get/all/" + count;
+        final String baseUrl = "http://localhost:" + 8080 + "/api/v1/metrics/get/all";
         URI uri = new URI(baseUrl);
         ResponseEntity<String> result = restTemplate.getForEntity(uri, String.class);
         String[] list = result.getBody().split("},");
@@ -139,24 +132,25 @@ public class MetricsGetCurrentCountTests {
         for (String l : list) {
             if (l.contains("\"name\":\"cpu\"")) {
                 cpuCount++;
-            } else if (l.contains("\"name\":\"hdd\"")) {
-                hddCount++;
-            } else if (l.contains("\"name\":\"memory\"")) {
-                memoryCount++;
-            } else if (l.contains("\"name\":\"ssd\"")) {
-                ssdCount++;
-            } else if (l.contains("\"name\":\"taskCount\"")) {
-                taskCount++;
             }
-            else {
-                break;
+            if (l.contains("\"name\":\"hdd\"")) {
+                hddCount++;
+            }
+            if (l.contains("\"name\":\"memory\"")) {
+                memoryCount++;
+            }
+            if (l.contains("\"name\":\"ssd\"")) {
+                ssdCount++;
+            }
+            if (l.contains("\"name\":\"taskCount\"")) {
+                taskCount++;
             }
         }
         Assert.assertEquals(200, result.getStatusCodeValue());
-        Assert.assertEquals(true, cpuCount == count);
-        Assert.assertEquals(true, hddCount == count);
-        Assert.assertEquals(true, ssdCount == count);
-        Assert.assertEquals(true, memoryCount == count);
-        Assert.assertEquals(true, taskCount == count);
+        Assert.assertEquals(true, cpuCount == 3);
+        Assert.assertEquals(true, hddCount == 3);
+        Assert.assertEquals(true, ssdCount == 3);
+        Assert.assertEquals(true, memoryCount == 3);
+        Assert.assertEquals(true, taskCount == 3);
     }
 }

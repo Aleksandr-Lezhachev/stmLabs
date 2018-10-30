@@ -7,7 +7,6 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-
 public interface TaskRepository extends JpaRepository<TaskMetric, Long> {
     @Query(value = "SELECT attributes.name, task_metrics.id, task_metrics.attribute_id ,attributes.value, attributes.timestamp, attributes.requesttimestamp " +
             "FROM task_metrics INNER JOIN attributes " +
