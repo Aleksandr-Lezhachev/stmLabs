@@ -9,11 +9,12 @@ import java.util.List;
 
 
 public interface HddRepository extends JpaRepository<HddMetric, Long> {
-    @Query(value = "SELECT attributes.name, hdd_metrics.id, hdd_metrics.attribute_id ,attributes.value, hdd_metrics.param,attributes.timestamp, attributes.requesttimestamp " +
-            "FROM hdd_metrics INNER JOIN attributes " +
-            "ON hdd_metrics.attribute_id = attributes.id  " +
-            "WHERE attributes.name = (:name) " +
-            "ORDER BY attributes.timestamp " +
+    @Query(value = "SELECT base_metric.id, hdd_metric.id, base_metric.name, base_metric.param, base_metric.value, base_metric.status, base_metric.param,base_metric.time_stamp, " +
+            "base_metric.operation_time_stamp, base_metric.request_time_stamp \n" +
+            "FROM hdd_metric INNER JOIN base_metric \n" +
+            "ON hdd_metric.id = base_metric.id \n" +
+            "WHERE base_metric.name = (:name)\n" +
+            "ORDER BY base_metric.time_stamp \n" +
             "DESC LIMIT NULLIF(:size, -1)", nativeQuery = true)
     List<HddMetric> getByNameSomeMetrics(@Param("name") String name, @Param("size") Integer size);
 }

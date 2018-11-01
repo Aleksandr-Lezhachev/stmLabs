@@ -3,14 +3,12 @@ package api.v1.metrics.service.serviceImpl;
 import api.v1.metrics.entity.CpuMetric;
 import api.v1.metrics.repository.CpuRepository;
 import api.v1.metrics.service.CpuMetricService;
-import api.v1.metrics.wrapper.WrapperMetrics;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class CpuMetricServiceImpl implements CpuMetricService {
-
     private final CpuRepository cpuRepository;
 
     public CpuMetricServiceImpl(CpuRepository cpuRepository) {

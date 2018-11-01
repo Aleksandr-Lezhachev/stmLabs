@@ -8,11 +8,12 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface CpuRepository extends JpaRepository<CpuMetric, Long> {
-    @Query(value = "SELECT attributes.name, cpu_metrics.id, cpu_metrics.attribute_id ,attributes.value, cpu_metrics.param,attributes.timestamp, attributes.requesttimestamp " +
-            "FROM cpu_metrics INNER JOIN attributes " +
-            "ON cpu_metrics.attribute_id = attributes.id  " +
-            "WHERE attributes.name = (:name) " +
-            "ORDER BY attributes.timestamp " +
+    @Query(value = "SELECT base_metric.id, cpu_metric.id, base_metric.name, base_metric.param, base_metric.value, base_metric.status, base_metric.param,base_metric.time_stamp, " +
+            "base_metric.operation_time_stamp, base_metric.request_time_stamp \n" +
+            "FROM cpu_metric INNER JOIN base_metric \n" +
+            "ON cpu_metric.id = base_metric.id \n" +
+            "WHERE base_metric.name = (:name)\n" +
+            "ORDER BY base_metric.time_stamp \n" +
             "DESC LIMIT NULLIF(:size, -1)", nativeQuery = true)
 
     List<CpuMetric> getByNameSomeMetrics(@Param("name") String name, @Param("size") Integer size);

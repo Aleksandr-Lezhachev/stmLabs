@@ -25,7 +25,7 @@ public class MetricsGetCurrentDefaultTests {
     @Test
     public void testGetCpuCountListSuccess() throws URISyntaxException {
         RestTemplate restTemplate = new RestTemplate();
-        final String baseUrl = "http://localhost:" + 8080 + "/api/v1/metrics/get/cpu/5";
+        final String baseUrl = "http://localhost:" + 8080 + "/api/v1/metrics/get/cpu";
         URI uri = new URI(baseUrl);
         ResponseEntity<String> result = restTemplate.getForEntity(uri, String.class);
         String[] list = result.getBody().split("},");

@@ -8,11 +8,12 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface MemoryRepository extends JpaRepository<MemoryMetric, Long> {
-    @Query(value = "SELECT attributes.name, memory_metrics.id, memory_metrics.attribute_id ,attributes.value, memory_metrics.param,attributes.timestamp, attributes.requesttimestamp " +
-            "FROM memory_metrics INNER JOIN attributes " +
-            "ON memory_metrics.attribute_id = attributes.id  " +
-            "WHERE attributes.name = (:name) " +
-            "ORDER BY attributes.timestamp " +
+    @Query(value = "SELECT base_metric.id, memory_metric.id, base_metric.name, base_metric.param, base_metric.value, base_metric.status, base_metric.param,base_metric.time_stamp, " +
+            "base_metric.operation_time_stamp, base_metric.request_time_stamp \n" +
+            "FROM memory_metric INNER JOIN base_metric \n" +
+            "ON memory_metric.id = base_metric.id \n" +
+            "WHERE base_metric.name = (:name)\n" +
+            "ORDER BY base_metric.time_stamp \n" +
             "DESC LIMIT NULLIF(:size, -1)", nativeQuery = true)
     List<MemoryMetric> getByNameSomeMetrics(@Param("name") String name, @Param("size") Integer size);
 }

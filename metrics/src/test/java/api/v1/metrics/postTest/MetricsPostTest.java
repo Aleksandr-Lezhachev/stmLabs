@@ -29,34 +29,34 @@ import java.util.List;
 @SpringBootTest
 public class MetricsPostTest {
 
-    @Test
+   @Test
     public void testAddPackageMetrics() throws URISyntaxException, JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
         final String baseUrl = "http://localhost:" + 8080 + "/api/v1/metrics/post";
         URI uri = new URI(baseUrl);
-        Attributes cpuAttributes = new Attributes("cpu", 100.0, Status.OVERLOADED.getStatus(),
+        BaseMetric cpuBaseMetric = new BaseMetric("cpu", "Intel core i9 Extreme", 100.0, Status.OVERLOADED.getStatus(),
                 new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()));
-        CpuMetric cpuMetric = new CpuMetric("Intel core i9 Extreme", cpuAttributes);
+        CpuMetric cpuMetric = new CpuMetric(cpuBaseMetric);
 
-        Attributes hddAttributes = new Attributes("hdd", 84.4, Status.UP.getStatus(),
-                new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()));
-        HddMetric hddMetric = new HddMetric("Toshiba LT678904", hddAttributes);
+        BaseMetric hddBaseMetric = new BaseMetric("hdd", "TOSHIBA MQ 01ABF050", 100.0, Status.OVERLOADED.getStatus(),
+               new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()));
+        HddMetric hddMetric = new HddMetric(hddBaseMetric);
 
-        Attributes memoryAttributes = new Attributes("memory", 66, Status.NOT_RESPONDING.getStatus(),
-                new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()));
-        MemoryMetric memoryMetric = new MemoryMetric("Corsair 2600", memoryAttributes);
+       BaseMetric memoryBaseMetric = new BaseMetric("memory", "Slot1: SO-DIMM DDR3L 1600 MHz 4GiB", 100.0, Status.OVERLOADED.getStatus(),
+               new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()));
+       MemoryMetric memoryMetric = new MemoryMetric(memoryBaseMetric);
 
-        Attributes ssdAttributes = new Attributes("ssd", 0, Status.DOWN.getStatus(),
-                new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()));
-        SsdMetric ssdMetric = new SsdMetric("Samsung 4500", ssdAttributes);
+       BaseMetric ssdBaseMetric = new BaseMetric("ssd", "KINGSTON MLG1267", 100.0, Status.OVERLOADED.getStatus(),
+               new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()));
+       SsdMetric ssdMetric = new SsdMetric(ssdBaseMetric);
 
-        Attributes taskAttributes = new Attributes("taskCount", 10,
-                new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()));
-        TaskMetric taskMetric = new TaskMetric(taskAttributes);
+       BaseMetric taskBaseMetric = new BaseMetric("taskCount", "", 100.0, Status.OVERLOADED.getStatus(),
+               new Timestamp(System.currentTimeMillis()), new Timestamp(System.currentTimeMillis()));
+       TaskMetric taskMetric = new TaskMetric(taskBaseMetric);
 
         List<BaseMetric> metrics = new ArrayList<>();
         metrics.add(cpuMetric);
-        metrics.add(hddMetric);
+       metrics.add(hddMetric);
         metrics.add(memoryMetric);
         metrics.add(ssdMetric);
         metrics.add(taskMetric);
@@ -71,5 +71,6 @@ public class MetricsPostTest {
 
         Assert.assertEquals(201, response.getStatusCodeValue());
     }
+
 }
 

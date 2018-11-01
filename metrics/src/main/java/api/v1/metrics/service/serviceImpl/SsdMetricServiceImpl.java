@@ -32,6 +32,6 @@ public class SsdMetricServiceImpl implements SsdMetricService {
 
     @Override
     public List<SsdMetric> getByNameSomeMetrics(String name, Integer size) {
-        return ssdRepository.getByNameSomeMetrics(name,size);
+        return ssdRepository.getByNameSomeMetrics(name, size);
     }
 }
