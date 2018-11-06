@@ -6,7 +6,6 @@ import api.v1.metrics.entity.enums.RoleName;
 import api.v1.metrics.repository.RoleRepository;
 import api.v1.metrics.repository.UserRepository;
 import api.v1.metrics.security.JwtProvider;
-import api.v1.metrics.security.message.request.LoginForm;
 import api.v1.metrics.security.message.request.SignUpForm;
 import api.v1.metrics.security.message.response.JwtResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +43,7 @@ public class AuthRestAPIs {
     JwtProvider jwtProvider;
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginRequest) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody Users loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -66,7 +65,6 @@ public class AuthRestAPIs {
                     HttpStatus.BAD_REQUEST);
         }
 
-        // Creating user's account
         Users user = new Users(signUpRequest.getUsername(),
                 encoder.encode(signUpRequest.getPassword()));
 
@@ -79,7 +77,6 @@ public class AuthRestAPIs {
                     Role adminRole = roleRepository.findByName(RoleName.ADMIN)
                             .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
                     roles.add(adminRole);
-
                     break;
 
                 default:

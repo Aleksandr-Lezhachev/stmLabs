@@ -11,7 +11,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 
-public class UserPrinciple implements UserDetails {
+public class UserPrincipal implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     private Long id;
@@ -23,7 +23,7 @@ public class UserPrinciple implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserPrinciple(Long id,
+    public UserPrincipal(Long id,
                          String username, String password,
                          Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
@@ -32,12 +32,12 @@ public class UserPrinciple implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static UserPrinciple build(Users user) {
+    public static UserPrincipal build(Users user) {
         List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
                 new SimpleGrantedAuthority(role.getName().name())
         ).collect(Collectors.toList());
 
-        return new UserPrinciple(
+        return new UserPrincipal(
                 user.getId(),
                 user.getUsername(),
                 user.getPassword(),
@@ -89,7 +89,7 @@ public class UserPrinciple implements UserDetails {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UserPrinciple user = (UserPrinciple) o;
+        UserPrincipal user = (UserPrincipal) o;
         return Objects.equals(id, user.id);
     }
 }

@@ -1,7 +1,5 @@
 package api.v1.metrics.security;
 
-import api.v1.metrics.service.serviceImpl.UserDetailsServiceImpl;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,11 +17,11 @@ import java.io.IOException;
 
 public class JwtAuthTokenFilter extends OncePerRequestFilter {
     @Autowired
-    private JwtProvider tokenProvider;
+    JwtProvider tokenProvider;
 
     @Autowired
     @Qualifier("userDetailsService")
-    private UserDetailsService userDetailsService;
+    UserDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,

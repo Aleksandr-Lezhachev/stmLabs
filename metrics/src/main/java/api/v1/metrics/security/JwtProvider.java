@@ -1,9 +1,10 @@
 package api.v1.metrics.security;
 
-import api.v1.metrics.entity.UserPrinciple;
+import api.v1.metrics.entity.UserPrincipal;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-import io.jsonwebtoken.*;
 
 @Component
 public class JwtProvider {
@@ -12,7 +13,7 @@ public class JwtProvider {
 
     public String generateJwtToken(Authentication authentication) {
 
-        UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
 
         return Jwts.builder()
                 .setSubject(userPrincipal.getUsername())
