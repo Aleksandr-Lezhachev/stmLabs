@@ -53,8 +53,8 @@ public class JwtAuthTokenFilter extends OncePerRequestFilter {
     private String getJwt(HttpServletRequest request) {
         String authHeader = request.getHeader("Authorization");
 
-        if (authHeader != null && authHeader.startsWith("STM ")) {
-            return authHeader.replace("STM ", "");
+        if (authHeader != null && authHeader.startsWith("STM-Labs-Token ")) {
+            return authHeader.replace("STM-Labs-Token ", "");
         }
 
         return null;

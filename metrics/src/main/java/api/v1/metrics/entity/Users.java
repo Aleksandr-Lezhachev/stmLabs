@@ -13,22 +13,12 @@ import java.util.Set;
 @Entity
 public class Users {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotBlank
     @Size(min = 3, max = 50)
-    private String name;
-
-    @NotBlank
-    @Size(min = 3, max = 50)
     private String username;
-
-
-    @NotBlank
-    @Size(max = 50)
-    @Email
-    private String email;
 
     @NotBlank
     @Size(min = 6, max = 100)
@@ -36,7 +26,7 @@ public class Users {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_role",
-            joinColumns = @JoinColumn(name = "user_id"),
+            joinColumns = @JoinColumn(name = "users_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
@@ -60,14 +50,6 @@ public class Users {
 
     public String getUsername() {
         return username;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getPassword() {
