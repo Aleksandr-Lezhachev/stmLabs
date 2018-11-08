@@ -2,7 +2,7 @@ package api.v1.metrics.security.message.response;
 
 public class JwtResponse {
     private String token;
-    private String type = "STM-Labs-Token";
+    private String type = "Bearer ";
 
     public JwtResponse(String accessToken) {
         this.token = accessToken;
